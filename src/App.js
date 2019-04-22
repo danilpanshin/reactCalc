@@ -1,26 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react';
+import './normalize.css';
+import './skeleton.css';
+import Form from './components/Form';
+import {calculateTotal} from './helper';
 
 class App extends Component {
+
+  state = {
+    total: ''
+  }
+
+  loanInformation = (type, ceiling, wall, floor, length, width, high, amount) => {
+    const total = calculateTotal(type, ceiling, wall, floor, length, width, high, amount);
+    this.setState({total});
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Fragment>
+        <h1>ПОДБОР СВЕТИЛЬНИКОВ ИСХОДЯ ИЗ ИХ КОЛИЧЕСТВА И ПАРАМЕТРОВ ПОМЕЩЕНИЯ</h1>
+        <div className="container">
+          <Form 
+            loanInformation={this.loanInformation}
+          />
+        </div>
+      </Fragment>
     );
   }
 }
