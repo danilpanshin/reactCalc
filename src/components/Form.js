@@ -14,9 +14,7 @@ class Form extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log('form submitted');
         const {type, ceiling, wall, floor, length, width, high, amount} = this.state;
-
         this.props.loanInformation(type, ceiling, wall, floor, length, width, high, amount);
     }
 
@@ -31,14 +29,12 @@ class Form extends Component {
     }
 
     validateForm = () => {
-        const {type, ceiling} = this.state;
-        const notValid = !type || !ceiling;
+        const {type, ceiling, wall, floor, length, width, high, amount} = this.state;
+        const notValid = !type || !ceiling || !wall || !floor || !length || !width || !high || !amount;
         return notValid;
     }
 
     render() { 
-        const {type} = this.state;
-        const {ceiling} = this.state;
         return ( 
             <form onSubmit={this.handleSubmit}>
                 <div className="row">
@@ -60,7 +56,7 @@ class Form extends Component {
                 </select>
                 </div>
                 <div>
-                    <label>Тон потолка {ceiling}</label>
+                    <label>Тон потолка</label>
                     <select
                         onChange={this.handleChange} 
                         name="ceiling" 

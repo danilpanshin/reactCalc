@@ -3,6 +3,8 @@ import './normalize.css';
 import './skeleton.css';
 import Form from './components/Form';
 import {calculateTotal} from './helper';
+import Result from './components/Result';
+import Message from './components/Message';
 
 class App extends Component {
 
@@ -16,6 +18,18 @@ class App extends Component {
   }
 
   render() {
+    const {total} = this.state;
+
+    let component;
+    if(total === '') {
+      component = <Message />
+    } else {
+      component =   <Result 
+                      total={total}
+                    />
+    }
+
+
     return (
       <Fragment>
         <h1>ПОДБОР СВЕТИЛЬНИКОВ ИСХОДЯ ИЗ ИХ КОЛИЧЕСТВА И ПАРАМЕТРОВ ПОМЕЩЕНИЯ</h1>
@@ -23,6 +37,9 @@ class App extends Component {
           <Form 
             loanInformation={this.loanInformation}
           />
+          <div className="messages">
+           {component}
+          </div>
         </div>
       </Fragment>
     );
